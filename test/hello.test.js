@@ -3,7 +3,7 @@ import request from 'supertest'
 import { server } from '../index'
 
 afterAll(() => {
-  server.close();
+  server.close()
 })
 
 describe('GET /', ()=> {

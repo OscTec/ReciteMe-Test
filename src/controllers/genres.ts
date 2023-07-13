@@ -1,16 +1,32 @@
-import { Request, Response } from 'express';
+import { Request, Response } from 'express'
 
-const genres = [
-  { id: 1, name: 'Horror' },
-  { id: 2, name: 'Adventure' },
-]
+import * as genreProvider from '../providers/genres'
+import { Genre } from '../dtos/genre'
 
-export const getGenres = (req: Request, res: Response) => {
+export const getGenres = async (req: Request, res: Response) => {
+  const rawGenres = await genreProvider.getGenres()
+
+  if (!rawGenres) {
+    return res.status(500).json({ message: 'Internal server error' })
+  }
+
+  const genres = rawGenres.map((genre) => new Genre(
+    genre.id,
+    genre.name,
+    genre.games_count
+  ))
+
   res.json(genres)
 }
 
-export const getGenre = (req: Request, res: Response) => {
+export const getGenre = async (req: Request, res: Response) => {
   const { id } = req.params
 
-  return res.json(genres.find(game => game.id === Number(id)))
+  const genre = await genreProvider.getGenre(Number(id))
+
+  if (!genre) {
+    return res.status(404).json({ message: 'Genre not found' })
+  }
+
+  return res.json(new Genre(genre.id, genre.name, genre.games_count))
 }

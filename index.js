@@ -10,6 +10,7 @@ app.get('/', function (req, res) {
 })
 
 app.get('/genres', genresController.getGenres)
+app.get('/genres/:id', genresController.getGenre)
 
 app.get('/games', gamesController.getGames)
 app.get('/games/:id', gamesController.getGame)

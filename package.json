@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "tsx index.js",
+    "start": "tsx index.ts",
     "test": "jest"
   },
   "jest": {

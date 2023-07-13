@@ -1,11 +1,12 @@
 import express from 'express'
+import { Request, Response } from 'express'
 
 import * as genresController from './src/controllers/genres'
 import * as gamesController from './src/controllers/games'
 
 const app = express()
 
-app.get('/', function (req, res) {
+app.get('/', function (req: Request, res: Response) {
   res.status(200).json('Hello World')
 })
 
